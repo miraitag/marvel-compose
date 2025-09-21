@@ -1,4 +1,4 @@
-package com.example.marvelcompose.data.model
+package com.miraitag.myapplication.data.model
 
 data class Character(
     val id: Int,

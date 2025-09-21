@@ -1,16 +1,15 @@
 package com.miraitag.myapplication
 
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
+import com.miraitag.myapplication.data.model.Character
+import com.miraitag.myapplication.ui.screens.characters.CharactersScreen
 import com.miraitag.myapplication.ui.theme.MarvelComposeTheme
 
 class MainActivity : ComponentActivity() {
@@ -18,30 +17,29 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-            MarvelComposeTheme {
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Greeting(
-                        name = "Android",
-                        modifier = Modifier.padding(innerPadding)
-                    )
-                }
+            val characters = (1..10).map {
+                Character(
+                    id = it,
+                    name = "Name $it",
+                    descriptions = "Description",
+                    thumbnail = "https://dummyimage.com/150x255/ff6600/ffffff&text=nombre$it"
+                )
+            }
+            characters.forEach {
+                Log.i("Marvel", "marvel ${it.thumbnail}", )
+            }
+            MarvelApp {
+                CharactersScreen(characters = characters)
             }
         }
     }
 }
 
 @Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
-
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
+fun MarvelApp(content: @Composable () -> Unit) {
     MarvelComposeTheme {
-        Greeting("Android")
+        Surface(color = MaterialTheme.colorScheme.background) {
+            content()
+        }
     }
 }
