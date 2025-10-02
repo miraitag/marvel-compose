@@ -1,0 +1,21 @@
+meta {
+  name: getCharacter
+  type: http
+  seq: 2
+}
+
+get {
+  url: https://gateway.marvel.com/v1/public/characters?ts={{ts}}&apikey={{publicKey}}&hash={{hash}}
+  body: none
+  auth: inherit
+}
+
+params:query {
+  ts: {{ts}}
+  apikey: {{publicKey}}
+  hash: {{hash}}
+}
+
+settings {
+  encodeUrl: true
+}

@@ -1,0 +1,9 @@
+{
+  "version": "1",
+  "name": "marvelApi",
+  "type": "collection",
+  "ignore": [
+    "node_modules",
+    ".git"
+  ]
+}

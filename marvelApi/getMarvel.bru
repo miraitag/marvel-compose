@@ -1,0 +1,47 @@
+meta {
+  name: getMarvel
+  type: http
+  seq: 1
+}
+
+get {
+  url: https://gateway.marvel.com/v1/public/characters?ts={{ts}}&apikey={{publicKey}}&hash={{hash}}
+  body: none
+  auth: inherit
+}
+
+params:query {
+  ts: {{ts}}
+  apikey: {{publicKey}}
+  hash: {{hash}}
+}
+
+script:pre-request {
+  const cryptoJS = require('crypto-js');
+  
+  // Generar timestamp
+  const ts = Date.now().toString();
+  bru.setEnvVar("ts", ts);
+  
+  // Obtener claves desde las variables de entorno
+  const privateKey = bru.getEnvVar("privateKey");
+  const publicKey = bru.getEnvVar("publicKey");
+  
+  if (!privateKey || !publicKey) {
+    throw new Error("Faltan las claves en Environment: define 'privateKey' y 'publicKey'");
+  }
+  
+  // Concatenar
+  const toHash = ts + privateKey + publicKey;
+  
+  // Generar hash MD5 con crypto-js
+  const hash = cryptoJS.MD5(toHash).toString();
+  
+  // Guardar en env vars para usar en la URL
+  bru.setEnvVar("hash", hash);
+  
+}
+
+settings {
+  encodeUrl: true
+}
