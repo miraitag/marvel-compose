@@ -16,6 +16,13 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+
+        buildConfigField(type = "String", name = "MARVEL_PUBLIC_KEY", value = "\${project.findProperty(\"MARVEL_PUBLIC_KEY\")}\"")
+        buildConfigField(type = "String", name = "MARVEL_PRIVATE_KEY", value = "\${project.findProperty(\"MARVEL_PRIVATE_KEY\")}\"")
+    }
+
+    buildFeatures {
+        buildConfig = true
     }
 
     buildTypes {
@@ -56,6 +63,9 @@ dependencies {
     // Coil
     implementation(libs.coil.compose)
     implementation(libs.coil.network.okhttp)
+
+    // Retrofit
+    implementation(libs.bundles.retrofit)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
