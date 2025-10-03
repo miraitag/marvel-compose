@@ -4,6 +4,8 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.toRoute
+import com.miraitag.myapplication.ui.screens.characterDetail.CharacterDetailScreen
 import com.miraitag.myapplication.ui.screens.characters.CharactersScreen
 
 @Composable
@@ -16,12 +18,12 @@ fun Navigation() {
     ) {
         composable<Characters> {
             CharactersScreen {
-                navController.navigate(CharacterDetail(id = it.id.toString()))
+                navController.navigate(CharacterDetail(id = it.id))
             }
         }
-        /*composable<CharacterDetail> {
-            val (id) = it.toRoute<CharacterDetail>()
-            CharacterDetailScreen(id = id)
-        }*/
+        composable<CharacterDetail> {
+            val args = it.toRoute<CharacterDetail>()
+            CharacterDetailScreen(id = args.id)
+        }
     }
 }

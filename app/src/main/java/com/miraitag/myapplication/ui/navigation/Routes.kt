@@ -6,4 +6,4 @@ import kotlinx.serialization.Serializable
 object Characters
 
 @Serializable
-data class CharacterDetail(val id: String)
+data class CharacterDetail(val id: Int)
