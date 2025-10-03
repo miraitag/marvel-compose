@@ -1,5 +1,6 @@
 package com.miraitag.myapplication.ui.screens.characters
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.aspectRatio
@@ -16,7 +17,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -31,34 +32,39 @@ import com.miraitag.myapplication.data.model.Character
 import com.miraitag.myapplication.data.repositories.CharactersRepository
 
 @Composable
-fun CharactersScreen() {
+fun CharactersScreen(onCharacterClick: (Character) -> Unit) {
 
-    var charactersState by remember { mutableStateOf(emptyList<Character>()) }
+    var charactersState by rememberSaveable { mutableStateOf(emptyList<Character>()) }
 
     LaunchedEffect(Unit) {
         charactersState = CharactersRepository.getCharacters()
     }
 
-    CharacterScreen(characters = charactersState)
-
+    CharacterScreen(
+        characters = charactersState,
+        onCharacterClick = onCharacterClick,
+    )
 }
 
 
 @Composable
-fun CharacterScreen(characters: List<Character>) {
+fun CharacterScreen(characters: List<Character>, onCharacterClick: (Character) -> Unit) {
     LazyVerticalGrid(
         columns = GridCells.Adaptive(180.dp),
         contentPadding = PaddingValues(4.dp)
     ) {
         items(items = characters) {
-            CharacterItem(it)
+            CharacterItem(
+                character = it,
+                modifier = Modifier.clickable { onCharacterClick(it) }
+            )
         }
     }
 }
 
 @Composable
-fun CharacterItem(character: Character) {
-    Column(modifier = Modifier.padding(8.dp)) {
+fun CharacterItem(character: Character, modifier: Modifier = Modifier) {
+    Column(modifier = modifier.padding(8.dp)) {
         Card {
             AsyncImage(
                 model = character.thumbnail,
@@ -96,7 +102,8 @@ private fun CharacterScreenPreview() {
     }
     MarvelApp {
         CharacterScreen(
-            characters = characters
+            characters = characters,
+            onCharacterClick = {}
         )
     }
 }

@@ -16,7 +16,9 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             MarvelApp {
-                CharactersScreen()
+                CharactersScreen {
+                    // Handle character click
+                }
             }
         }
     }
