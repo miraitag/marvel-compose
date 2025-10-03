@@ -17,8 +17,8 @@ android {
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
-        buildConfigField(type = "String", name = "MARVEL_PUBLIC_KEY", value = "\${project.findProperty(\"MARVEL_PUBLIC_KEY\")}\"")
-        buildConfigField(type = "String", name = "MARVEL_PRIVATE_KEY", value = "\${project.findProperty(\"MARVEL_PRIVATE_KEY\")}\"")
+        buildConfigField(type = "String", name = "MARVEL_PUBLIC_KEY", value = "${project.findProperty("MARVEL_PUBLIC_KEY")}")
+        buildConfigField(type = "String", name = "MARVEL_PRIVATE_KEY", value = "${project.findProperty("MARVEL_PRIVATE_KEY")}")
     }
 
     buildFeatures {

@@ -13,6 +13,11 @@ import androidx.compose.material3.Card
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
@@ -23,9 +28,24 @@ import coil3.compose.AsyncImage
 import com.miraitag.myapplication.MarvelApp
 import com.miraitag.myapplication.R
 import com.miraitag.myapplication.data.model.Character
+import com.miraitag.myapplication.data.repositories.CharactersRepository
 
 @Composable
-fun CharactersScreen(characters: List<Character>) {
+fun CharactersScreen() {
+
+    var charactersState by remember { mutableStateOf(emptyList<Character>()) }
+
+    LaunchedEffect(Unit) {
+        charactersState = CharactersRepository.getCharacters()
+    }
+
+    CharacterScreen(characters = charactersState)
+
+}
+
+
+@Composable
+fun CharacterScreen(characters: List<Character>) {
     LazyVerticalGrid(
         columns = GridCells.Adaptive(180.dp),
         contentPadding = PaddingValues(4.dp)
@@ -65,7 +85,7 @@ fun CharacterItem(character: Character) {
 
 @Preview(showBackground = true)
 @Composable
-private fun CharactersScreenPreview() {
+private fun CharacterScreenPreview() {
     val characters = (1..10).map {
         Character(
             id = it,
@@ -75,6 +95,8 @@ private fun CharactersScreenPreview() {
         )
     }
     MarvelApp {
-        CharactersScreen(characters = characters)
+        CharacterScreen(
+            characters = characters
+        )
     }
 }

@@ -1,4 +1,4 @@
-package com.miraitag.myapplication.data.network.model
+package com.miraitag.myapplication.data.api.model
 
 data class Character(
     val comics: Comics,

@@ -1,6 +1,6 @@
-package com.miraitag.myapplication.data.network.model
+package com.miraitag.myapplication.data.api.model
 
-data class Events(
+data class Comics(
     val available: Int,
     val collectionURI: String,
     val items: List<Comic>,

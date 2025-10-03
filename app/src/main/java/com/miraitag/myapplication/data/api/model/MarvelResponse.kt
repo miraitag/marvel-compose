@@ -1,6 +1,6 @@
-package com.miraitag.myapplication.data.network.model
+package com.miraitag.myapplication.data.api.model
 
-data class ApiResponse<T>(
+data class MarvelResponse<T>(
     val attributionHTML: String,
     val attributionText: String,
     val code: Int,

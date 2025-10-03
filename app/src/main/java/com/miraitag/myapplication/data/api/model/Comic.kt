@@ -1,4 +1,4 @@
-package com.miraitag.myapplication.data.network.model
+package com.miraitag.myapplication.data.api.model
 
 data class Comic(
     val name: String,
