@@ -7,7 +7,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
-import com.miraitag.myapplication.ui.screens.characters.CharactersScreen
+import com.miraitag.myapplication.ui.navigation.Navigation
 import com.miraitag.myapplication.ui.theme.MarvelComposeTheme
 
 class MainActivity : ComponentActivity() {
@@ -16,9 +16,7 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             MarvelApp {
-                CharactersScreen {
-                    // Handle character click
-                }
+                Navigation()
             }
         }
     }
