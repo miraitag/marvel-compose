@@ -23,7 +23,7 @@ fun Navigation() {
         }
         composable<CharacterDetail> {
             val args = it.toRoute<CharacterDetail>()
-            CharacterDetailScreen(id = args.id)
+            CharacterDetailScreen(characterId = args.id)
         }
     }
 }
